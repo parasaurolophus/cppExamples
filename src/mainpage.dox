@@ -1,0 +1,13 @@
+/*!
+ * \mainpage Example C++ Source Code
+ *
+ * Example C++ code with doxygen comments.
+ *
+ * This project contains a C++ implementation of a
+ * thread-synchronization mechanism modeled on Java
+ * "monitors."
+ *
+ * \see examples::Thread
+ * \see examples::Monitor
+ * \see examples::Lock
+ */
