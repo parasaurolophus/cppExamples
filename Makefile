@@ -3,19 +3,16 @@ OBJS = src/unit_tests.o src/CommandQueue.o src/CompositeCommand.o src/Monitor.o 
 unit_tests : $(OBJS)
 	g++ -o unit_tests $(OBJS)
 
-%.o: %.cpp
-	g++ -o $@ $<
+.PHONY : clean cleanall cleandocs docs
 
-.PHONY clean cleanall cleandocs docs
-
-docs: cleandocs
+docs : cleandocs
 	-doxygen
 
-clean:
+clean :
 	-rm src/*.o
 
-cleanall: clean cleandocs
+cleanall : clean cleandocs
 	-if ( -f unit_tests ); then rm unit_tests; fi
 
-cleandocs:
-	-if ( -d docs ); then rm -rf docs
+cleandocs :
+	-if ( -d docs ); then rm -rf docs; fi
