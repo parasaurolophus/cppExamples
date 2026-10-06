@@ -28,36 +28,7 @@ namespace examples {
  * execution of two commands followed by application
  * termination, but only after both commands have completed.
  *
- * @startuml{examples_CommandQueue_activity.png}
- * scale max 500*600
- * 'title Activity depicting asynchronous\ninvocation of two commands\nfollowed by application\ntermination after both\ncommands have completed
- * (*) --> ===B1===
- * partition "application thread" {
- *     --> "some work..." as one
- *     --> queue.enqueue(command1)
- *     --> "...more work..." as two
- *     --> queue.enqueue(command2)
- *     --> "...even more work..." as three
- *     --> queue.enqueue(null)
- *     --> queue.join()
- * }
- * --> ===B2===
- * --> (*)
- * partition "queue thread" {
- *     ===B1=== --> "dequeue()" as wait
- *     if "" then
- *         --> [null\ncommand] ===B2===
- *     else
- *         --> [valid\ncommand] command.execute()
- *         if "" then
- *             --> [command\nthrew\nexception] log(exception)
- *             --> wait
- *         else
- *             --> [command\nexited\nnormally] wait
- *         endif
- *     endif
- * }
- * @enduml
+ * [TODO: insert mermaid diagram here]
  */
 class CommandQueue: public Thread<void, void> {
 
@@ -79,21 +50,7 @@ protected:
      *
      * Executed in the worker thread.
      *
-     * @startuml{examples_CommandQueue_state.png}
-     * scale max 500*600
-     * state wait
-     * wait: dequeue()
-     * state run
-     * run: command->execute()
-     * state error
-     * error: log(exception)
-     * [*] -> wait
-     * wait -> run: valid command
-     * wait --> [*]: null\ncommand
-     * run -> wait: command exists normally
-     * run --> error: command\nthrows\nexception
-     * error -up-> wait : error\nlogged
-     * @enduml
+     * [TODO: insert mermaid here]
      *
      * \param argument Worker thread procedure's
      *                 argument.
