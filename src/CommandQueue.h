@@ -28,7 +28,44 @@ namespace examples {
  * execution of two commands followed by application
  * termination, but only after both commands have completed.
  *
- * [TODO: insert mermaid diagram here]
+ * @mermaid
+ * swimlane-beta TB
+ *
+ * subgraph command queue thread
+ *     dequeue[wait for command,<br>dequeue]
+ *     execute
+ *     terminate
+ * end
+ *
+ * subgraph application thread
+ *     start[create command queue]
+ *     work1[...some work...]
+ *     enqueue1[enqueue]
+ *     work2[...some more work...]
+ *     enqueue2[enqueue]
+ *     work3[...continue...]
+ *     delete[delete command queue]
+ *     join
+ * end
+ *
+ * start --> work1
+ * work1 --> enqueue1
+ * enqueue1 --> work2
+ * work2 --> enqueue2
+ * enqueue2 --> work3
+ * work3 --> delete
+ * delete --> join
+ *
+ * dequeue -- command --> execute
+ * execute --> dequeue
+ * dequeue -- detach --> terminate
+ *
+ * start -- constructor --> dequeue
+ * enqueue1 -- command --> dequeue
+ * enqueue2 -- command --> dequeue
+ * delete -- destructor --> dequeue
+ * terminate --> join
+ * @endmermaid
  */
 class CommandQueue: public Thread<void, void> {
 
@@ -50,7 +87,17 @@ protected:
      *
      * Executed in the worker thread.
      *
-     * [TODO: insert mermaid here]
+     * @mermaid
+     * ---
+     * title: CommandQeue
+     * ---
+     * stateDiagram
+     * [*] --> dequeue
+     *     dequeue --> run: command
+     *     run --> dequeue: command->execute()
+     *     run --> catch: exception
+     *     catch --> dequeue: log(exception)
+     * @endmermaid
      *
      * \param argument Worker thread procedure's
      *                 argument.

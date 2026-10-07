@@ -9,7 +9,6 @@
  * classDiagram
  *     %% misdirect to work around namespace direction bug in mermaid
  *     direction LR
- *     note "VOIDp and RESULTp are used to denote void* and RESULT* types\nas a work-around for crippling defects in mermaid class member syntax"
  *     namespace examples {
  *         class GenericThread  {
  *             <<abstract>>
@@ -18,9 +17,9 @@
  *             #GenericThread(VOIDp)
  *             #_execute()*
  *             #_join()
- *             -run(void*) VOIDp$
+ *             -run(void*) void*$
  *         }
- *         note for Thread "This should be Thread&lt;ARGUMENT,RESULT&gt;\nbut mermaid is almost completely useless for C++"
+ *         note for Thread "This also has a RESULT parameter type but<br>mermaid is almost completely useless for C++<br><br>Also, RESULTp is used to denote RESULT* due<br>to yet more defects in mermaid's class member<br>syntax"
  *         class Thread~ARGUMENT~{
  *             #Thread(ARGUMENT*)
  *             +join() RESULTp
